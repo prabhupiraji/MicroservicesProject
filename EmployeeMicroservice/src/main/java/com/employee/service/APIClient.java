@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.employee.dto.DepartmentDto;
+import com.employee.dto.OrganizationDto;
+//import com.organization.entity.Organization;
 
 
 
@@ -15,6 +17,12 @@ import com.employee.dto.DepartmentDto;
 	    // Build get department rest api
 	    @GetMapping("/api/department/getdepartmentbyid/{deparmentcode}")
 	    DepartmentDto getDepartment(@PathVariable("deparmentcode") String deparmentcode);
-	}
+	    
+	    
+@FeignClient(name ="ORGANIZATION-SERVICE")
+public interface APIClientORG {
+	@GetMapping("/api/organization/getorganization/{organizationcode}")
+    OrganizationDto getOrganizationByCode(@PathVariable("organizationcode") String organizationcode);
 
-
+}
+}
