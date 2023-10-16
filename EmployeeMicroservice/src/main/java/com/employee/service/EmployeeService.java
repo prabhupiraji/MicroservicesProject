@@ -15,8 +15,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.employee.dto.ApiResponseDto;
 import com.employee.dto.DepartmentDto;
+import com.employee.dto.OrganizationDto;
 import com.employee.entity.Employee;
 import com.employee.repository.EmployeeRepo;
+import com.employee.service.APIClient.APIClientORG;
 
 import io.github.resilience4j.retry.annotation.Retry;
 //import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -38,6 +40,9 @@ EmployeeRepo employeeRepo;
 //	WebClient webClient;
 	@Autowired
     private APIClient apiClient;
+	
+	@Autowired
+    private APIClientORG apiClientOrg ;
 
 //	 @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
 	 @Retry(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
@@ -58,11 +63,12 @@ EmployeeRepo employeeRepo;
 //          .block();
 	  
 	  DepartmentDto departmentDto = apiClient.getDepartment(employee.getDeparmentcode());
-
+      OrganizationDto organizationDto=apiClientOrg.getOrganizationByCode(employee.getOrganizationcode());
      ApiResponseDto apiResponseDto=new ApiResponseDto();
  
      apiResponseDto.setEmployee(employee);
      apiResponseDto.setDepartmentDto(departmentDto);
+     apiResponseDto.setOrganizationDto(organizationDto);
 	  return apiResponseDto;
 	}
 	
