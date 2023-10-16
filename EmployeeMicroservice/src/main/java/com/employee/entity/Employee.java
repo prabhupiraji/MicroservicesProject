@@ -20,6 +20,7 @@ public class Employee {
 	String name;
 	String email;
 	String deparmentcode;
+	String organizationcode;
 //	public String getDepartmentCode() {
 //		// TODO Auto-generated method stub
 //		return null;
